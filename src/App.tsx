@@ -97,6 +97,7 @@ const Plan = styled.div`
         tr {
             td {
                 padding: 2.5rem 0;
+                vertical-align: middle;
                 &:first-child {
                     text-align: center;
                     width: 40%;
