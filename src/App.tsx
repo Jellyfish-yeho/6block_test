@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
   body{
       font-family: 'Ubuntu', sans-serif;
       font-weight: 500;
+      color: #333;
   }
   a{
       text-decoration: none;
@@ -35,6 +36,8 @@ const Container = styled.div`
     border: 0.2rem solid #7367f0;
     border-radius: 2rem;
     box-shadow: 0 0 0.5rem 0 #7367f0;
+    padding: 2rem 0rem;
+    background-color: #eeeeee;
 `;
 const Logo = styled.div`
     position: absolute;
@@ -49,11 +52,125 @@ const Logo = styled.div`
     border: none;
     border-radius: 50%;
     background-color: #7367f0;
-    img{
-        width: 80%;
-        height: 80%;
+    box-shadow: 0 0 0.5rem 0 #7367f0;
+    img {
+        width: 70%;
+        height: 70%;
         object-fit: contain;
+        filter: drop-shadow(0 0 0.5rem #00000058);
     }
+`;
+
+const Header = styled.div`
+    position: relative;
+    margin: 0 2rem;
+    padding: 6rem 0 2rem;
+    border-bottom: 3px solid #7367f0;
+    text-align: center;
+    color: #7367f0;
+    font-weight: 800;
+    span {
+        position: absolute;
+        top: 5%;
+        right: 0;
+        font-size: 2.5rem;
+        cursor: pointer;
+        color: #000;
+    }
+    p {
+        font-size: 3rem;
+    }
+`;
+const Plan = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 2rem;
+    table {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+        caption{
+            display: none;
+        }
+        tr {
+            td {
+                padding: 2.5rem 0;
+                &:first-child {
+                    text-align: center;
+                    width: 40%;
+                }
+                label {
+                    font-size: 2rem;
+                    font-weight: 800;
+                    margin-right: 2rem;
+                }
+                select,
+                input,
+                textarea {
+                    width: 100%;
+                    resize: none;
+                    border: none;
+                    border-bottom: 1px solid #7367f0;
+                    outline: none;
+                    padding: 0.5rem 1rem;
+                    font-size: 1.5rem;
+                    background-color: transparent;
+                    &::placeholder {
+                        color: #f9f9ff;
+                    }
+                }
+                input[id="doneCk"] {
+                    width: auto;
+                    display: none;
+                    & + label {
+                        cursor: pointer;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        &::before {
+                            content: "";
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            display: inline-block;
+                            width: 2.5rem;
+                            height: 2.5rem;
+                            border: 2px solid #7367f0;
+                            border-radius: 1rem;
+                            margin-right: 1rem;
+                        }
+                    }
+                    &:checked + label {
+                        &::before {
+                            content: "✔";
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            background-color: #7367f0;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
+const Footer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+const Btn = styled.div<{ bgColor: string }>`
+    padding: 1.5rem 3.5rem;
+    background-color: ${(props) => props.bgColor};
+    border-radius: 3rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0.7rem;
+    color: #fff;
 `;
 
 function App() {
@@ -63,9 +180,77 @@ function App() {
                 <GlobalStyle />
                 <Container>
                     <Logo>
-                        <img src="img/six_block_03.png" alt="six block planner logo"/>
+                        <img
+                            src="img/six_block_03.png"
+                            alt="six block planner logo"
+                        />
                     </Logo>
-                    TEST
+                    <Header>
+                        <span>X</span>
+                        <p>Your Plan</p>
+                    </Header>
+                    <Plan>
+                        <table>
+                            <caption>Your Plan</caption>
+                            <tr>
+                                <td>
+                                    <label htmlFor="keyword">KEYWORD</label>
+                                </td>
+                                <td>
+                                    <select name="keyword" id="keyword">
+                                        <option
+                                            value="0"
+                                            selected
+                                            disabled
+                                            hidden
+                                        >
+                                            Select keyword
+                                        </option>
+                                        <option>Work</option>
+                                        <option>Game</option>
+                                        <option>Study</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label htmlFor="date">DATE</label>
+                                </td>
+                                <td>
+                                    <input type="date" id="date" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label htmlFor="time">TIME</label>
+                                </td>
+                                <td>
+                                    <input type="time" id="time" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label htmlFor="memo">MEMO</label>
+                                </td>
+                                <td>
+                                    <textarea
+                                        maxLength={30}
+                                        id="memo"
+                                    ></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan={2}>
+                                    <input type="checkbox" id="doneCk" />
+                                    <label htmlFor="doneCk">Done</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </Plan>
+                    <Footer>
+                        <Btn bgColor="#7367f0">Apply</Btn>
+                        <Btn bgColor=" #F8726D">Delete</Btn>
+                    </Footer>
                 </Container>
             </Wrap>
         </>
