@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 const GlobalStyle = createGlobalStyle`
   ${reset};
@@ -91,7 +93,7 @@ const Plan = styled.div`
         table-layout: fixed;
         width: 100%;
         border-collapse: collapse;
-        caption{
+        caption {
             display: none;
         }
         tr {
@@ -175,6 +177,11 @@ const Btn = styled.div<{ bgColor: string }>`
 `;
 
 function App() {
+    const options= [
+        { value: "work1", label: "Work1" },
+        { value: "work2", label: "Work2" },
+        { value: "work3", label: "Work3" },
+    ];
     return (
         <>
             <Wrap>
@@ -198,19 +205,15 @@ function App() {
                                     <label htmlFor="keyword">KEYWORD</label>
                                 </td>
                                 <td>
-                                    <select name="keyword" id="keyword">
-                                        <option
-                                            value="0"
-                                            selected
-                                            disabled
-                                            hidden
-                                        >
-                                            Select keyword
-                                        </option>
-                                        <option>Work</option>
-                                        <option>Game</option>
-                                        <option>Study</option>
-                                    </select>
+                                    <Select
+                                        options={options}
+                                        isMulti
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        name="keyword"
+                                        id="keyword"
+                                        defaultValue="Select Keyword"
+                                    />
                                 </td>
                             </tr>
                             <tr>
